@@ -25,7 +25,12 @@ ingredients_list    =   st.multiselect(
 )
 
 if ingredients_list:
-    ingredients =   ' '.join(ingredients_list)
+    ingredients =   ''
+    for fruit in ingredients_list:
+      ingredients  +=  
+      smoothiefroot_response  =  requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
+      sf_df  =  st.dataframe(data=smoothiefroot_response.json(), use_container_width = True)
+      
     my_insert_stmt = f"""insert into smoothies.public.orders(name_on_order, ingredients)
             values ('{order_name}','{ingredients}')"""
         
@@ -35,6 +40,4 @@ if ingredients_list:
         session.sql(my_insert_stmt).collect()
         st.success('Your Smoothie is ordered!', icon="✅")
 
-smoothiefroot_response  =  requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
-# st.text(smoothiefroot_response.json())
-sf_df  =  st.dataframe(data=smoothiefroot_response.json(), use_container_width = True)
+
